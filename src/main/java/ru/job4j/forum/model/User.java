@@ -14,6 +14,19 @@ public class User {
 
     private boolean enabled;
 
+    public static User of(int id, String password, String username, boolean enabled) {
+        User user = new User();
+        user.id = id;
+        user.password = password;
+        user.username = username;
+        user.enabled = enabled;
+        return user;
+    }
+
+    public void addAuthorityToUser(Authority authority) {
+        this.authority = authority;
+    }
+
     public int getId() {
         return id;
     }

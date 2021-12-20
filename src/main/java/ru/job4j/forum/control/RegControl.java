@@ -12,8 +12,7 @@ import ru.job4j.forum.model.User;
 //import ru.job4j.accident.repository.UserRepository;
 
 @Controller
-public class RegControl {
-
+public class RegControl { //TODO
 
 //    @PostMapping("/reg")
 //    public String regSave(@ModelAttribute User user) {
