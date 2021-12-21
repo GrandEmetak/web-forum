@@ -2,15 +2,14 @@ package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.User;
-import ru.job4j.forum.repository.UserRepository;
 
 @Service
 public class ServiceReg {
 
-    private UserRepository userRepository;
+    private UserService userService;
 
-    public ServiceReg(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public ServiceReg(UserService userRepository) {
+        this.userService = userRepository;
     }
 
     /**
@@ -19,6 +18,6 @@ public class ServiceReg {
      * @return User object
      */
     public User regNewUser(User user) {
-        return userRepository.saveNewUser(user);
+        return userService.saveUser(user);
     }
 }
