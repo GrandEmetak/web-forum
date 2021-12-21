@@ -1,6 +1,9 @@
 package ru.job4j.forum.model;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class User {
 
@@ -10,9 +13,11 @@ public class User {
 
     private String username;
 
+    private boolean enabled;
+
     private Authority authority;
 
-    private boolean enabled;
+    private Set<Post> postSet = new HashSet<>();
 
     public static User of(int id, String password, String username, boolean enabled) {
         User user = new User();
@@ -25,6 +30,10 @@ public class User {
 
     public void addAuthorityToUser(Authority authority) {
         this.authority = authority;
+    }
+
+    public void addPostToUser(Post post) {
+        this.postSet.add(post);
     }
 
     public int getId() {
@@ -65,6 +74,14 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Set<Post> getPostSet() {
+        return postSet;
+    }
+
+    public void setPostSet(Set<Post> postSet) {
+        this.postSet = postSet;
     }
 
     @Override

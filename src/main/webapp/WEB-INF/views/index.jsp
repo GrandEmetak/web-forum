@@ -24,7 +24,8 @@
     <title>Форум job4j</title>
 </head>
 <body>
-<a href="<c:url value='/create'/>">Добавить Объявление</a>
+<a href="<c:url value='/create?user=${user.username}'/>">Добавить Объявление</a>
+<%--<a href="<c:url value='/create'/>">Добавить Объявление</a>--%>
 <br>
 <div>
     Login as : ${user.username}
@@ -35,7 +36,7 @@
         <h4>Форум job4j</h4>
     </div>
     <div class="card-body">
-        <table class="table">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">#</th>

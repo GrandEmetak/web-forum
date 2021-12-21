@@ -12,9 +12,12 @@ public class Post {
 
     private User user;
 
-    public static Post of(String name) {
+    public static Post of(String name, String description) {
         Post post = new Post();
+        post.created = new GregorianCalendar();
         post.name = name;
+        post.description = description;
+        post.created.setTime(post.created.getTime());
         return post;
     }
 

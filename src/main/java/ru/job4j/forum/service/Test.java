@@ -3,6 +3,7 @@ package ru.job4j.forum.service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.User;
+import ru.job4j.forum.repository.PostRepository;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -23,5 +24,16 @@ public class Test {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String pwd = encoder.encode("123456");
         System.out.println(pwd);
+        PostRepository postRepository = new PostRepository();
+        PostService postService = new PostService(postRepository);
+        var col = postRepository.getAll();
+        col.stream().forEach(System.out::println);
+        var cl = postService.findById(1);
+        System.out.println(cl);
+        cl.setName("Sebastian Pereiro");
+        cl.setDescription("Торговец черным деревом");
+        var rsl = postService.updatePost(cl);
+        System.out.println(rsl);
+
     }
 }

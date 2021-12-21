@@ -8,6 +8,13 @@ public class Authority {
 
     private String authority;
 
+    public static Authority of(int id, String authority) {
+        Authority auth = new Authority();
+        auth.id = id;
+        auth.authority = authority;
+        return auth;
+    }
+
     public int getId() {
         return id;
     }
