@@ -8,6 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Контроллер отвечающий за Логин
+ * 0. Spring Boot [#6880]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * В качестве проекта мы сделаем классическое приложение - форум.
+ * Создайте модели Post, User.
+ * Хранение данных в памяти. Базу данных подключать не надо.
+ */
 @Controller
 public class LoginControl {
     @GetMapping("/login")

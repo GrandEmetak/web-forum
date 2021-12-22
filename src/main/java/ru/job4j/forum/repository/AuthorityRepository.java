@@ -8,6 +8,14 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/**
+ * Репозиторий Ролей авторизации
+ * 0. Spring Boot [#6880]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * В качестве проекта мы сделаем классическое приложение - форум.
+ * Создайте модели Post, User.
+ * Хранение данных в памяти. Базу данных подключать не надо.
+ */
 @Repository
 public class AuthorityRepository {
     private AtomicInteger atomicInteger = new AtomicInteger(0);

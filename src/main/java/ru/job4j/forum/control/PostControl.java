@@ -14,6 +14,14 @@ import ru.job4j.forum.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
+/**
+ * Контроллер отвечающий за Посты create/update/save
+ * 0. Spring Boot [#6880]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * В качестве проекта мы сделаем классическое приложение - форум.
+ * Создайте модели Post, User.
+ * Хранение данных в памяти. Базу данных подключать не надо.
+ */
 @Controller
 public class PostControl {
 
@@ -33,16 +41,12 @@ public class PostControl {
 
     @GetMapping("/update")
     public String update(@RequestParam("id") int id, Model model) {
-        System.out.println("update" + id);
         model.addAttribute("post", postService.findById(id));
         return "post/update";
     }
 
-    @PostMapping("/saveUpdate")//(@RequestParam("id") int id,
+    @PostMapping("/saveUpdate")
     public String saveUpdate(@ModelAttribute Post post) {
-//        Post post1 = postService.findById(id);
-        System.out.println(post);
-
         postService.updatePost(postService.saveData(post));
         return "redirect:/";
     }

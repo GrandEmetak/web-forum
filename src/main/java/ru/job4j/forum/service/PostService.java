@@ -9,11 +9,16 @@ import java.util.Collection;
 
 /**
  * уровень Сервис для работы с репозиторием объявлений Пост (Post object)
+ * 0. Spring Boot [#6880]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * В качестве проекта мы сделаем классическое приложение - форум.
+ * Создайте модели Post, User.
+ * Хранение данных в памяти. Базу данных подключать не надо.
  */
 @Service
 public class PostService {
 
-   private PostRepository postRepository;
+    private PostRepository postRepository;
 
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
@@ -25,22 +30,12 @@ public class PostService {
 
     /**
      * find By Id Post Object
+     *
      * @param id Post Object
      * @return Post Object
      */
     public Post findById(int id) {
         return postRepository.findByIdPost(id);
-    }
-
-    /**
-     *
-     * @param n
-     * @param d
-     * @param user
-     * @return
-     */
-    public Post putUserToPost(String n, String d, User user) {
-      return postRepository.putUser(n, d, user);
     }
 
     public Post putUserToPost(Post post, User user) {
@@ -51,6 +46,7 @@ public class PostService {
 
     /**
      * save Post Object in Repo
+     *
      * @param post Post Object
      */
     public void save(Post post) {
@@ -59,6 +55,7 @@ public class PostService {
 
     /**
      * save new data in Post Object
+     *
      * @param post Post Object
      * @return Post Object
      */
@@ -69,6 +66,7 @@ public class PostService {
 
     /**
      * update Post object
+     *
      * @param post Post Object include new info
      * @return Post Object
      */
