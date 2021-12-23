@@ -29,7 +29,9 @@ public class LoginControl {
         if (logout != null) {
             errorMessage = "You have been successfully logged out !!";
         }
+        System.out.println("LoginControl errorMessage : " + errorMessage);
         model.addAttribute("errorMessage", errorMessage);
+        System.out.println("LoginControl Done!");
         return "login";
     }
 
@@ -41,4 +43,10 @@ public class LoginControl {
         }
         return "redirect:/login?logout=true";
     }
+
+//    @PostMapping("/login")
+//    public String loginPagepost(Model model) {
+//
+//        return "/index";
+//    }
 }

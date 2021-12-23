@@ -36,6 +36,7 @@ public class User {
             CascadeType.DETACH,
             CascadeType.PERSIST,
             CascadeType.MERGE})
+    @JoinColumn(name = "authority_id")
     private Authority authority;
 
     @OneToMany(cascade = {CascadeType.PERSIST,

@@ -7,6 +7,12 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 /**
  * Main class SpringBoot Start
+ * Многие разработчики Spring Boot всегда аннотируют свой основной класс с помощью @Configuration,
+ * -@EnableAutoConfigurationи @ComponentScan. Поскольку эти аннотации так часто используются вместе
+ * (особенно если вы следуете приведенным выше рекомендациям), Spring Boot предоставляет
+ * удобную @SpringBootApplicationальтернативу. *
+ * -@SpringBootApplicationАннотация эквивалентно использования @Configuration,
+ * -@EnableAutoConfigurationи @ComponentScanс их атрибутами по умолчанию
  */
 @SpringBootApplication
 public class Main extends SpringBootServletInitializer {

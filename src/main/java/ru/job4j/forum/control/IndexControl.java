@@ -29,6 +29,7 @@ public class IndexControl {
 
     @GetMapping({"/", "/index"})
     public String index(Model model) {
+        System.out.println("IndexControl Done! ->index");
         model.addAttribute("user", SecurityContextHolder
                 .getContext()
                 .getAuthentication()

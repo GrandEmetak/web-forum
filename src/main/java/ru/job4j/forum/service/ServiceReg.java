@@ -12,7 +12,7 @@ import ru.job4j.forum.model.User;
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
  */
-@Service
+/*@Service*/
 public class ServiceReg {
 
     private UserService userService;

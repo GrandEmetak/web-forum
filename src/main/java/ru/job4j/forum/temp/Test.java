@@ -24,11 +24,12 @@ public class Test {
         user.setUsername("Ivan Sobolev");
         Post post = Post.of(1, "Продам веллоспед", "Продам велосипедб новый горный");
         post.addUserToPost(user);
-        System.out.println(post);
+        System.out.println(post);*/
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String pwd = encoder.encode("123456");
         System.out.println(pwd);
-        PostRepository postRepository = new PostRepository();
+
+     /*/   PostRepository postRepository = new PostRepository();
         PostService postService = new PostService(postRepository);
         var col = postRepository.getAll();
         col.stream().forEach(System.out::println);

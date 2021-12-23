@@ -10,32 +10,48 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
 /**
  * подключим авторизацию к проекту
  * Spring использует тот же подход, что и Servlet. Внутри используется Filter,
  * который проверяет входящие запросы и отдает jsessionId.
  * Создадим отдельный класс, в котором сделаем настройки для авторизации.
  * пользователи будут храниться в памяти.
+ 2. Spring boot security [#296071]
+ Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
  */
-@Configuration
-@EnableWebSecurity
+/*@Configuration
+@EnableWebSecurity*/
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private DataSource ds;
+
     /**
-     *
+     *запросы авторизации и аутентификации.
+     * также убраны типовые данные прописаннные для примера и дающие возможность входа user и admin
+     *     auth.inMemoryAuthentication()
+     *                 .passwordEncoder(passwordEncoder)
+     *                 .withUser("user").password(passwordEncoder.encode("123456")).roles("USER")
+     *                 .and()
+     *                 .withUser("admin").password(passwordEncoder.encode("123456")).roles("USER", "ADMIN");
      * @param auth
      * @throws Exception
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder)
-                .withUser("user").password(passwordEncoder.encode("123456")).roles("USER")
-                .and()
-                .withUser("admin").password(passwordEncoder.encode("123456")).roles("USER", "ADMIN");
+        auth.jdbcAuthentication().dataSource(ds)
+                .usersByUsernameQuery("select username, password, enabled "
+                        + "from users "
+                        + "where username = ?")
+                .authoritiesByUsernameQuery(
+                        " select u.username, a.authority "
+                                + "from authoritys as a, users as u "
+                                + "where u.username = ? and u.authority_id = a.id");
     }
 
     @Bean
@@ -44,8 +60,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
+     * У каждого пользователя есть роль. По роли мы определяем, что пользователь может делать .
+     *
+     * Метод configure(http) содержит описание доступов и конфигурирование страницы входа в приложение.
      * - ссылки, которые доступны всем.
-     * .antMatchers("/login")
+     * .antMatchers("/login") доступ в SpringSecurity.-.antMatchers("/login", "/reg")
      * .permitAll()
      * - ссылки доступны только пользователем с ролями ADMIN, USER.
      * .antMatchers("/**")

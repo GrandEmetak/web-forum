@@ -36,7 +36,7 @@ import java.util.Arrays;
  * а работает с репозит потдерживающим БД (Postgres)
  * не активные методы относятся к локальному классу репозиторию
  */
-@Controller
+/*@Controller*/
 public class PostControl {
 
     private final PostService postService;

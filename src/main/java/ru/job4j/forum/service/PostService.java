@@ -45,6 +45,7 @@ public class PostService {
     public List<Post> getAll() {
         List<Post> rsl = new ArrayList<>();
         posts.findAll().forEach(rsl::add);
+        rsl.stream().forEach(System.out::println);
         return rsl;
     }
 
