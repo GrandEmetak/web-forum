@@ -1,5 +1,6 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
@@ -10,13 +11,31 @@ import java.util.Objects;
  * В качестве проекта мы сделаем классическое приложение - форум.
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
+ * 1. Spring boot repository [#2095]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * Подключите базу данных в проекте job4j_forum.
  */
+@Entity
+@Table(name = "posts")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "created")
     private Calendar created;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST,
+            CascadeType.DETACH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
     private User user;
 
     public static Post of(String name, String description) {
@@ -105,8 +124,8 @@ public class Post {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", description='" + description + '\''
-                + ", User='" + user + '\''
                 + ", created=" + created
+                + ", user=" + user
                 + '}';
     }
 }

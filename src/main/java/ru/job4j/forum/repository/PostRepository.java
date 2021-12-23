@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
  */
-@Repository
+/* @Repository */
 public class PostRepository {
 
     private AtomicInteger atomicInteger = new AtomicInteger(0);
@@ -49,6 +49,7 @@ public class PostRepository {
 
     /**
      * save new Post object in to the storage
+     *
      * @param post
      * @return
      */
@@ -58,7 +59,6 @@ public class PostRepository {
     }
 
     /**
-     *
      * @return Collection Post object
      */
     public Collection<Post> getAll() {
@@ -77,6 +77,7 @@ public class PostRepository {
 
     /**
      * update Post object include new info about object
+     *
      * @param post Object
      * @return post Object
      */
@@ -86,4 +87,5 @@ public class PostRepository {
         post.setUser(post1.getUser());
         return postMap.put(post.getId(), post);
     }
+
 }

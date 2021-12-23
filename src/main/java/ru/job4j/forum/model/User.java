@@ -1,5 +1,6 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -11,24 +12,51 @@ import java.util.Set;
  * В качестве проекта мы сделаем классическое приложение - форум.
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
+ * 1. Spring boot repository [#2095]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * Подключите базу данных в проекте job4j_forum.
  */
+@Entity
+@Table(name = "users")
 public class User {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "username")
     private String username;
 
+    @Column(name = "enabled")
     private boolean enabled;
 
+    @OneToOne(cascade = {CascadeType.PERSIST,
+            CascadeType.DETACH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE})
     private Authority authority;
 
+    @OneToMany(cascade = {CascadeType.PERSIST,
+            CascadeType.DETACH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE},
+            fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private Set<Post> postSet = new HashSet<>();
 
     public static User of(int id, String password, String username, boolean enabled) {
         User user = new User();
         user.id = id;
+        user.password = password;
+        user.username = username;
+        user.enabled = enabled;
+        return user;
+    }
+
+    public static User of(String password, String username, boolean enabled) {
+        User user = new User();
         user.password = password;
         user.username = username;
         user.enabled = enabled;
@@ -115,6 +143,8 @@ public class User {
                 + ", password='" + password + '\''
                 + ", username='" + username + '\''
                 + ", enabled=" + enabled
+                + ", authority=" + authority
+//                + ", postSet=" + postSet
                 + '}';
     }
 }

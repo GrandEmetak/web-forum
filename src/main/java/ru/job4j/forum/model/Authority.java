@@ -1,5 +1,7 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
+
 import java.util.Objects;
 
 /**
@@ -9,12 +11,28 @@ import java.util.Objects;
  * В качестве проекта мы сделаем классическое приложение - форум.
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
+ * 1. Spring boot repository [#2095]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * Подключите базу данных в проекте job4j_forum.
  */
+@Entity
+@Table(name = "authoritys")
 public class Authority {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "authority")
     private String authority;
+
+    public Authority() {
+    }
+
+    public static Authority of(String authority) {
+        Authority auth = new Authority();
+        auth.authority = authority;
+        return auth;
+    }
 
     public static Authority of(int id, String authority) {
         Authority auth = new Authority();
