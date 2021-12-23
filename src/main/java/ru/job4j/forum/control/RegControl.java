@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.service.ServiceReg;
-//import ru.job4j.accident.repository.AuthorityRepository;
-//import ru.job4j.accident.repository.UserRepository;
+/* import ru.job4j.accident.repository.AuthorityRepository;*/
+/* import ru.job4j.accident.repository.UserRepository;*/
 
 /**
  * Класс отвечает за регистрацию пользователя в системе

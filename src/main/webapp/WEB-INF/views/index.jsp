@@ -42,7 +42,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Тема</th>
                 <th scope="col">Описание</th>
-                <th scope="col">Дата</th>
+                <th scope="col">Создан</th>
                 <th scope="col">Автор</th>
                 <th scope="col">Обновить</th>
             </tr>

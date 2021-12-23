@@ -21,6 +21,20 @@ import java.util.Arrays;
  * В качестве проекта мы сделаем классическое приложение - форум.
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
+ * 1. Spring boot repository [#2095]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * Подключите базу данных в проекте job4j_forum.
+ * private final PostRepository posts - произведена замена,
+ * с локального репозитория класс ru.job4j.forum.repository.PostRepository, на
+ * interface PostRepository -ru.job4j.forum.store -
+ * ! Service  больше не работает с лок.репозиторием,
+ * private PostRepository postRepository;
+ * <p>
+ * public PostService(PostRepository postRepository) {
+ * this.postRepository = postRepository;
+ * }
+ * а работает с репозит потдерживающим БД (Postgres)
+ * не активные методы относятся к локальному классу репозиторию
  */
 @Controller
 public class PostControl {
@@ -41,20 +55,20 @@ public class PostControl {
 
     @GetMapping("/update")
     public String update(@RequestParam("id") int id, Model model) {
-//        model.addAttribute("post", postService.findById(id));
+/*        model.addAttribute("post", postService.findById(id));*/
         return "post/update";
     }
 
     @PostMapping("/saveUpdate")
     public String saveUpdate(@ModelAttribute Post post) {
-//        postService.updatePost(postService.saveData(post));
+/*        postService.updatePost(postService.saveData(post));*/
         return "redirect:/";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Post post) {
         var usr = userService.findById(post.getId());
-//        postService.save(postService.putUserToPost(post, usr));
+/*        postService.save(postService.putUserToPost(post, usr));*/
         return "redirect:/";
     }
 }

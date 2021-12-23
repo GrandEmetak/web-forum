@@ -136,15 +136,10 @@ public class User {
         return Objects.hash(id);
     }
 
+/* , postSet=%s  - , postSet*/
     @Override
     public String toString() {
-        return "User{"
-                + "id=" + id
-                + ", password='" + password + '\''
-                + ", username='" + username + '\''
-                + ", enabled=" + enabled
-                + ", authority=" + authority
-//                + ", postSet=" + postSet
-                + '}';
+        return String.format("User: id=%s, password=%s, username=%s, enabled=%s, Authority=%s",
+                id, password,  username, enabled, authority);
     }
 }
