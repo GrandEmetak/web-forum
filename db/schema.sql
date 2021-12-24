@@ -5,9 +5,9 @@ create table authoritys
 );
 
 insert into authoritys (authority)
-values ('USER');
+values ('ROLE_USER');
 insert into authoritys (authority)
-values ('ADMIN');
+values ('ROLE_ADMIN');
 create table users
 (
     id           serial primary key,
@@ -18,13 +18,13 @@ create table users
 );
 
 insert into users (username, enabled, password, authority_id)
-values ('Ivan Sobolev', true, '123456',
+values ('Ivan Sobolev', true, '$2a$10$TqfYcEWuXxoY6L/aAz2X8egz47vmbtzqAH3PrnWF2gq2vfo7hmbHW',
         (select id from authoritys where authority = 'USER'));
 insert into users (username, enabled, password, authority_id)
-values ('Svetlana Donovan', true, '234567',
+values ('Svetlana Donovan', true, '$2a$10$HiWxVMtZjCOHyk4ktTzeQee7TR/BBrpnEmtORIi32N6Fh6NBiFpA.',
         (select id from authoritys where authority = 'USER'));
 insert into users (username, enabled, password, authority_id)
-values ('Sergei Shirokov', true, '345678',
+values ('Sergei Shirokov', true, '$2a$10$CzztUARq9leM95pmfI70OOT.qOrmxqQF.idwN1AOmpKRAMyzkjJsm',
         (select id from authoritys where authority = 'USER'));
 insert into users (username, enabled, password, authority_id)
 values ('root', true, '$2a$10$NLzdxS.HApEfFa9M1P6sN.qbqDE3trwQnJzkjYBGmGjdqIMu9/dbi',

@@ -15,6 +15,10 @@ import java.util.Set;
  * 1. Spring boot repository [#2095]
  * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
  * Подключите базу данных в проекте job4j_forum.
+ * 2. Spring boot security [#296071]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * - Подключите Spring Security к проекту.
+ * - Сделайте сразу интеграцию с базой данных.
  */
 @Entity
 @Table(name = "users")

@@ -32,6 +32,10 @@ import java.util.List;
  * this.postRepository = postRepository;
  * }
  * а работает с репозит потдерживающим БД (Postgres)
+ * 2. Spring boot security [#296071]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * - Подключите Spring Security к проекту.
+ * - Сделайте сразу интеграцию с базой данных.
  * не активные методы относятся к локальному классу репозиторию
  */
 @Service

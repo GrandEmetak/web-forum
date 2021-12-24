@@ -7,9 +7,9 @@ create table authoritys
 );
 
 insert into authoritys (authority)
-values ('USER');
+values ('ROLE_USER');
 insert into authoritys (authority)
-values ('ADMIN');
+values ('ROLE_ADMIN');
 create table users
 (
     id           serial primary key,

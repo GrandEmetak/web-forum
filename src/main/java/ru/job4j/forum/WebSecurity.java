@@ -12,6 +12,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
+/**
+ * 2. Spring boot security [#296071]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * - Подключите Spring Security к проекту.
+ * - Сделайте сразу интеграцию с базой данных.
+ * для возможности просматривать в консоли, можно испольщовать
+ * - @EnableWebSecurity(debug = true)
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -29,7 +37,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println("Получение данных из БД : Start !");
         auth.jdbcAuthentication()
                 .dataSource(ds)
                 .usersByUsernameQuery("select username, password, enabled "
@@ -39,13 +46,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         " select u.username, a.authority "
                                 + "from authoritys as a, users as u "
                                 + "where u.username = ? and u.authority_id = a.id");
-        auth.toString();
-//        auth.inMemoryAuthentication()
-//                .passwordEncoder(passwordEncoder)
-//                .withUser("user").password(passwordEncoder.encode("123456")).roles("USER")
-//                .and()
-//                .withUser("admin").password(passwordEncoder.encode("123456")).roles("USER", "ADMIN");
-        System.out.println("Получение данных из БД : Done!");
     }
 
     @Bean
@@ -53,13 +53,18 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * роли авторизации с разрешенным доступом .hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/login", "/reg")
                 .permitAll()
                 .antMatchers("/**")
-                .hasAnyRole("ADMIN", "USER")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                 .and()
                 .formLogin()
                 .loginPage("/login")

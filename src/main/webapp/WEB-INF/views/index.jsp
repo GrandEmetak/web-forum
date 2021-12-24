@@ -25,7 +25,7 @@
 </head>
 <body>
 <a href="<c:url value='/create?user=${user.username}'/>">Добавить Объявление</a>
-<%--<a href="<c:url value='/create'/>">Добавить Объявление</a>--%>
+
 <br>
 <div>
     Login as : ${user.username}

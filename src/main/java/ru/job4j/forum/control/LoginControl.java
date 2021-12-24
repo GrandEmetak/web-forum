@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
  * В качестве проекта мы сделаем классическое приложение - форум.
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
+ * 2. Spring boot security [#296071]
+ * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
+ * - Подключите Spring Security к проекту.
+ * - Сделайте сразу интеграцию с базой данных.
  */
 @Controller
 public class LoginControl {
@@ -29,9 +33,7 @@ public class LoginControl {
         if (logout != null) {
             errorMessage = "You have been successfully logged out !!";
         }
-        System.out.println("LoginControl errorMessage : " + errorMessage);
         model.addAttribute("errorMessage", errorMessage);
-        System.out.println("LoginControl Done!");
         return "login";
     }
 
@@ -43,10 +45,4 @@ public class LoginControl {
         }
         return "redirect:/login?logout=true";
     }
-
-//    @PostMapping("/login")
-//    public String loginPagepost(Model model) {
-//
-//        return "/index";
-//    }
 }

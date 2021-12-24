@@ -9,6 +9,9 @@ import ru.job4j.forum.model.Authority;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.User;
 
+/**
+ * Данный класс является тестовым, показывает работу с Hidernate
+ */
 public class Test2 {
 
     public static void main(String[] args) {
