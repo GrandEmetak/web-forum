@@ -26,12 +26,12 @@ import ru.job4j.forum.repository.UserRepository;
  *     public RegControl(ServiceReg serviceReg) {
  *         this.serviceReg = serviceReg;
  *     }
- *      @GetMapping("/reg")
+ *     - @GetMapping("/reg")
  *     public String regPage() {
  *         return "reg";
  *     }
  *
- *     @PostMapping("/reg")
+ *    - @PostMapping("/reg")
  *     public String regSave(@ModelAttribute User user) {
  *         serviceReg.regNewUser(user);
  *         return "redirect:/login";
