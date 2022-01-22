@@ -1,9 +1,6 @@
 package ru.job4j.forum.temp;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import ru.job4j.forum.model.Post;
-import ru.job4j.forum.model.User;
-import ru.job4j.forum.repository.PostRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

@@ -1,15 +1,17 @@
 package ru.job4j.forum.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Post;
-import ru.job4j.forum.model.User;
 
-import org.springframework.stereotype.Service;
-import ru.job4j.forum.model.Post;
+import ru.job4j.forum.model.User;
+import ru.job4j.forum.repository.PostRepositoryLocal;
 import ru.job4j.forum.store.PostRepository;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -40,22 +42,32 @@ import java.util.List;
  */
 @Service
 public class PostService {
-    private final PostRepository posts;
 
-    public PostService(PostRepository posts) {
-        this.posts = posts;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostService.class);
+
+    private static final Marker DEBUG = MarkerFactory.getMarker("DEBUG");
+
+    private final PostRepository postsStore;
+
+    private final PostRepositoryLocal postRepository;
+
+    public PostService(PostRepository posts, PostRepositoryLocal postRepository) {
+        this.postsStore = posts;
+        this.postRepository = postRepository;
     }
 
     public List<Post> getAll() {
         List<Post> rsl = new ArrayList<>();
-        posts.findAll().forEach(rsl::add);
-        rsl.stream().forEach(System.out::println);
+        postsStore.findAll().forEach(rsl::add);
+        // rsl.stream().forEach(System.out::println);
+        LOGGER.debug(DEBUG, " getAll() Post List {}", rsl);
+        LOGGER.info("info message {}", rsl);
         return rsl;
     }
 
 /*    public Collection<Post> getAll() {
         return postRepository.getAll();
-    }
+    }*/
 
     /**
      * find By Id Post Object
@@ -63,7 +75,7 @@ public class PostService {
      * @param id Post Object
      * @return Post Object
      */
-  /*  public Post findById(int id) {
+    public Post findById(int id) {
         return postRepository.findByIdPost(id);
     }
 
@@ -78,7 +90,7 @@ public class PostService {
      *
      * @param post Post Object
      */
-  /*  public void save(Post post) {
+    public void save(Post post) {
         postRepository.save(post);
     }
 
@@ -88,7 +100,7 @@ public class PostService {
      * @param post Post Object
      * @return Post Object
      */
-  /*  public Post saveData(Post post) {
+    public Post saveData(Post post) {
         postRepository.updatePost(post);
         return post;
     }
@@ -99,7 +111,7 @@ public class PostService {
      * @param post Post Object include new info
      * @return Post Object
      */
-  /*  public Post updatePost(Post post) {
+    public Post updatePost(Post post) {
         return postRepository.updatePost(post);
-    }*/
+    }
 }

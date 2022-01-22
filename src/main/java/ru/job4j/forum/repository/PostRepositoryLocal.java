@@ -18,14 +18,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
  */
-/* @Repository */
-public class PostRepository {
+@Repository
+public class PostRepositoryLocal {
 
     private AtomicInteger atomicInteger = new AtomicInteger(0);
 
     private Map<Integer, Post> postMap = new HashMap<>();
 
-    public PostRepository() {
+    public PostRepositoryLocal() {
         initPost();
     }
 
