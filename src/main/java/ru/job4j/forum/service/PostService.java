@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Post;
 
 import ru.job4j.forum.model.User;
+import ru.job4j.forum.repository.HbmRepository;
 import ru.job4j.forum.repository.PostRepositoryLocal;
 import ru.job4j.forum.store.PostRepository;
 
@@ -49,11 +50,16 @@ public class PostService {
 
     private final PostRepository postsStore;
 
-    private final PostRepositoryLocal postRepository;
+    private final PostRepositoryLocal postRepositoryLocal;
 
-    public PostService(PostRepository posts, PostRepositoryLocal postRepository) {
+    private  final HbmRepository hbmRepository;
+
+    public PostService(PostRepository posts,
+                       PostRepositoryLocal postRepository,
+                       HbmRepository hbmRepository) {
         this.postsStore = posts;
-        this.postRepository = postRepository;
+        this.postRepositoryLocal = postRepository;
+        this.hbmRepository = hbmRepository;
     }
 
     public List<Post> getAll() {
@@ -65,18 +71,19 @@ public class PostService {
         return rsl;
     }
 
-/*    public Collection<Post> getAll() {
-        return postRepository.getAll();
-    }*/
-
     /**
      * find By Id Post Object
+     * important int id convert Long.valueOf(id))
      *
      * @param id Post Object
      * @return Post Object
      */
     public Post findById(int id) {
-        return postRepository.findByIdPost(id);
+//        System.out.println("TO chto prislo findByID " + id);
+//        Integer jf = id;
+//        var optO = postsStore.findById(jf.longValue());
+//        return optO.orElse(null);
+        return hbmRepository.findPostById(id);
     }
 
     public Post putUserToPost(Post post, User user) {
@@ -86,12 +93,12 @@ public class PostService {
     }
 
     /**
-     * save Post Object in Repo
-     *
+     * save Post Object in DB Repo
+     * used CrudRepository
      * @param post Post Object
      */
-    public void save(Post post) {
-        postRepository.save(post);
+    public Post save(Post post) {
+     return postsStore.save(post);
     }
 
     /**
@@ -100,18 +107,60 @@ public class PostService {
      * @param post Post Object
      * @return Post Object
      */
-    public Post saveData(Post post) {
-        postRepository.updatePost(post);
+    public Post updatePost(Post post) {
+        hbmRepository.updatePost(post);
         return post;
     }
 
-    /**
-     * update Post object
-     *
-     * @param post Post Object include new info
-     * @return Post Object
-     */
-    public Post updatePost(Post post) {
-        return postRepository.updatePost(post);
-    }
+/* * ***/
+
+/*    public Collection<Post> getAll() {
+        return postRepository.getAll();
+    }*/
+
+//    /**
+//     * find By Id Post Object
+//     *
+//     * @param id Post Object
+//     * @return Post Object
+//     */
+//    public Post findById(int id) {
+//        return postRepository.findByIdPost(id);
+//    }
+
+//    public Post putUserToPost(Post post, User user) {
+//        Post post1 = Post.of(post.getName(), post.getDescription());
+//        post1.setUser(user);
+//        return post1;
+//    }
+
+//    /**
+//     * save Post Object in Repo
+//     *
+//     * @param post Post Object
+//     */
+//    public void save(Post post) {
+//        postRepository.save(post);
+//    }
+
+//    /**
+//     * save new data in Post Object
+//     *
+//     * @param post Post Object
+//     * @return Post Object
+//     */
+//    public Post saveData(Post post) {
+//        postRepository.updatePost(post);
+//        return post;
+//    }
+
+//    /**
+//     * update Post object
+//     *
+//     * @param post Post Object include new info
+//     * @return Post Object
+//     */
+//    public Post updatePost(Post post) {
+//        return postRepositoryLocal.updatePost(post);
+//    }
 }

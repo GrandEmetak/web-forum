@@ -1,12 +1,14 @@
 package ru.job4j.forum.control;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import ru.job4j.forum.service.PostService;
+import ru.job4j.forum.repository.HbmRepository;
 
 /**
  * Controller index page - main page
@@ -21,10 +23,19 @@ import ru.job4j.forum.service.PostService;
 @Controller
 public class IndexControl {
 
-    private final PostService posts;
+    private static Logger logger = LoggerFactory.getLogger(IndexControl.class);
+    private static Marker debug = MarkerFactory.getMarker("DEBUG");
 
-    public IndexControl(PostService posts) {
-        this.posts = posts;
+//    private final PostService posts;
+//
+//    public IndexControl(PostService posts) {
+//        this.posts = posts;
+//    }
+
+    private final HbmRepository hbmRepository;
+
+    public IndexControl(HbmRepository hbmRepository) {
+        this.hbmRepository = hbmRepository;
     }
 
     @GetMapping({"/", "/index"})
@@ -33,7 +44,11 @@ public class IndexControl {
                 .getContext()
                 .getAuthentication()
                 .getPrincipal());
-        model.addAttribute("posts", posts.getAll());
+//        model.addAttribute("posts", posts.getAll()); через CrudRepo
+        hbmRepository.getAll().stream().forEach(System.out::println);
+        model.addAttribute("posts", hbmRepository.getAll());
+        logger.info(debug, " getAll() Post List {}");
+        logger.debug(debug, " getAll() Post List {}", hbmRepository.getAll());
         return "index";
     }
 }

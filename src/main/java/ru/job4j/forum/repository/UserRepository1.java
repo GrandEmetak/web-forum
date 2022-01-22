@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * - Сделайте сразу интеграцию с базой данных.
  * сделан не активным репозиторий так как произведен переход на JDBC *
  */
-/*@Repository*/
+@Repository
 public class UserRepository1 {
 
     private AtomicInteger atomicInteger = new AtomicInteger(0);
@@ -47,6 +47,7 @@ public class UserRepository1 {
         this.userMap.put(adm.getId(), adm);
     }
 
+/**/
     public Collection<User> getAll() {
         return userMap.values();
     }

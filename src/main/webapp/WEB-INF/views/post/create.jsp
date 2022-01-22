@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Форум job4j / create</title>
+    <title>Форум job4j / create Post</title>
 </head>
 <body>
 <br>

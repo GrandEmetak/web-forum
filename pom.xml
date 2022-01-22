@@ -75,7 +75,11 @@
       <artifactId>postgresql</artifactId>
       <version>42.2.12</version>
     </dependency>
-
+    <dependency><!-- подключение Hibernate Spring ORM-->
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-dbcp2</artifactId>

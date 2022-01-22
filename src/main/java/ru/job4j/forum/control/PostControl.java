@@ -36,7 +36,7 @@ import java.util.Arrays;
  * а работает с репозит потдерживающим БД (Postgres)
  * не активные методы относятся к локальному классу репозиторию
  */
-/*@Controller*/
+@Controller
 public class PostControl {
 
     private final PostService postService;
@@ -47,28 +47,57 @@ public class PostControl {
         this.userService = userService;
     }
 
+    /**
+     * was  model.addAttribute("user", userService.findByNameUser(user));
+     * @param user
+     * @param model
+     * @return
+     */
     @GetMapping("/create")
     public String create(@RequestParam("user") String user, Model model) {
+        System.out.println("@RequestParam(user) String user" + user);
+        System.out.println("MODEL " + model);
         model.addAttribute("user", userService.findByNameUser(user));
         return "post/create";
     }
 
+    /**
+     * was localRepo model.addAttribute("post", postService.findById(id));
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/update")
     public String update(@RequestParam("id") int id, Model model) {
-/*        model.addAttribute("post", postService.findById(id));*/
+        model.addAttribute("post", postService.findById(id));
         return "post/update";
     }
 
+    /**
+     * +
+     *  postService.updatePost(postService.saveData(post));
+     * @param post
+     * @return
+     */
     @PostMapping("/saveUpdate")
     public String saveUpdate(@ModelAttribute Post post) {
-/*        postService.updatePost(postService.saveData(post));*/
+               postService.updatePost(post);
         return "redirect:/";
     }
 
+    /** +
+     * delete local method signature
+     * var usr = userService.findById(post.getId()); local repo
+     * postService.save(postService.putUserToPost(post, usr));
+     * need find user by id
+     *
+     * @param post
+     * @return
+     */
     @PostMapping("/save")
     public String save(@ModelAttribute Post post) {
-        var usr = userService.findById(post.getId());
-/*        postService.save(postService.putUserToPost(post, usr));*/
+        var user = userService.findUserById(post.getId());
+        postService.save(postService.putUserToPost(post, user));
         return "redirect:/";
     }
 }

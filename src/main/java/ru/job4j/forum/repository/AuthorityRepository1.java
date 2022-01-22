@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * - Сделайте сразу интеграцию с базой данных.
  * репозиторий сделан не активным
  */
-/*@Repository*/
+@Repository
 public class AuthorityRepository1 {
     private AtomicInteger atomicInteger = new AtomicInteger(0);
 

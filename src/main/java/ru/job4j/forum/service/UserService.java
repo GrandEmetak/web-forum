@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Authority;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.repository.AuthorityRepository1;
+import ru.job4j.forum.repository.HbmRepository;
 import ru.job4j.forum.repository.UserRepository1;
 
 import java.util.Collection;
@@ -16,26 +17,44 @@ import java.util.Collection;
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
  */
-/*@Service*/
+@Service
 public class UserService {
     private UserRepository1 userRepository;
     private AuthorityRepository1 authorityRepository;
+    private HbmRepository hbmRepository;
 
-    public UserService(UserRepository1 userRepository, AuthorityRepository1 authorityRepository) {
+    public UserService(UserRepository1 userRepository,
+                       AuthorityRepository1 authorityRepository,
+                       HbmRepository hbmRepository) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
+        this.hbmRepository = hbmRepository;
     }
 
     public Collection<User> getAll() {
         return userRepository.getAll();
     }
 
-    public User findById(int id) {
-        return userRepository.findByIdUser(id);
+    /**
+     * find User by id
+     *
+     * @param id
+     * @return User
+     */
+    public User findUserById(int id) {
+        return hbmRepository.findUserById(id);
     }
 
+//    public User findById(int id) {
+//        return userRepository.findByIdUser(id);
+//    }
+
+//    public User findByNameUser(String user) {
+//        return userRepository.findByNameUser(user);
+//    }
+
     public User findByNameUser(String user) {
-        return userRepository.findByNameUser(user);
+        return hbmRepository.findByNameUser(user);
     }
 
     public Authority findAuthority() {

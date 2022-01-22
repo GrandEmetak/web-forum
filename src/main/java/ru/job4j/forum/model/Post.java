@@ -61,6 +61,16 @@ public class Post {
         return post;
     }
 
+    public static Post of(int id, String name, String description, Calendar created, User user) {
+        Post post = new Post();
+        post.created = created;
+        post.id = id;
+        post.name = name;
+        post.description = description;
+        post.user = user;
+        return post;
+    }
+
     public void addUserToPost(User user) {
         this.user = user;
     }
