@@ -54,6 +54,7 @@ public class UserService {
 
     /**
      * get all User from DB forum@localhost table users
+     *
      * @return List<User> object
      */
     public Collection<User> getAll() {
@@ -87,6 +88,7 @@ public class UserService {
     /**
      * method  automatically assigns a role to a user (ROLE_USER),
      * save User object in DB table users
+     *
      * @param user
      * @return
      */
@@ -94,5 +96,9 @@ public class UserService {
         Authority aut = Authority.of(1, "ROLE_USER");
         user.setAuthority(aut);
         return userRepositoryStore.save(user);
+    }
+
+    public User findUserByUsername(String userName) {
+        return userRepositoryStore.findUserByUsername(userName);
     }
 }

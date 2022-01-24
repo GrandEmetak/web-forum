@@ -9,4 +9,5 @@ import ru.job4j.forum.model.User;
  * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.4. Security
  */
 public interface UserRepository  extends CrudRepository<User, Integer> {
+    public User findUserByUsername(String userName);
 }

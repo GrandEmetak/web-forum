@@ -2,14 +2,15 @@ package ru.job4j.forum.control;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.repository.AuthorityRepository;
 import ru.job4j.forum.repository.UserRepository;
-/* import ru.job4j.accident.repository.AuthorityRepository;*/
-/* import ru.job4j.accident.repository.UserRepository;*/
+import ru.job4j.forum.service.UserService;
 
 /**
  * Класс отвечает за регистрацию пользователя в системе
@@ -20,34 +21,34 @@ import ru.job4j.forum.repository.UserRepository;
  * Хранение данных в памяти. Базу данных подключать не надо.
  * 2. Регистрация пользователя [#296069 #241520]00
  * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.4. Security
- *  убраны
- *  private ServiceReg serviceReg;
- *
- *     public RegControl(ServiceReg serviceReg) {
- *         this.serviceReg = serviceReg;
- *     }
- *     - @GetMapping("/reg")
- *     public String regPage() {
- *         return "reg";
- *     }
- *
- *    - @PostMapping("/reg")
- *     public String regSave(@ModelAttribute User user) {
- *         serviceReg.regNewUser(user);
- *         return "redirect:/login";
- *     }
- *    заменены на - >
+ * убраны
+ * private ServiceReg serviceReg;
+ * <p>
+ * public RegControl(ServiceReg serviceReg) {
+ * this.serviceReg = serviceReg;
+ * }
+ * - @GetMapping("/reg")
+ * public String regPage() {
+ * return "reg";
+ * }
+ * <p>
+ * - @PostMapping("/reg")
+ * public String regSave(@ModelAttribute User user) {
+ * serviceReg.regNewUser(user);
+ * return "redirect:/login";
+ * }
+ * заменены на - >
  */
 @Controller
 public class RegControl {
 
     private final PasswordEncoder encoder;
-    private final UserRepository users;
+    private final UserService userService;
     private final AuthorityRepository authorities;
 
-    public RegControl(PasswordEncoder encoder, UserRepository users, AuthorityRepository authorities) {
+    public RegControl(PasswordEncoder encoder, UserService userService, AuthorityRepository authorities) {
         this.encoder = encoder;
-        this.users = users;
+        this.userService = userService;
         this.authorities = authorities;
     }
 
@@ -56,12 +57,32 @@ public class RegControl {
         return "reg";
     }
 
+    /**
+     * проверяет есть ли пользователь с таким именем,
+     * если нет то регестрация прозходит успешно
+     * если есть возвразает с предупреждением к форме регистрации
+     *
+     * @param user  Object User(username, password)
+     * @param model (String - warning)
+     * @return reg.jsp page or login.jsp page
+     */
     @PostMapping("/reg")
-    public String regSave(@ModelAttribute User user) {
+    public String regSave(@ModelAttribute User user, Model model) {
+
+        var userUnique = userService.findUserByUsername(user.getUsername());
+
+        if (userUnique != null) {
+            String errorMessage = null;
+
+            errorMessage = "A user with the same name already exists,\n"
+                    + " username must be unique !!!";
+            model.addAttribute("errorMessage", errorMessage);
+            return "/reg";
+        }
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorities.findByAuthority("USER"));
-        users.save(user);
+        userService.saveUser(user);
         return "redirect:/login";
     }
 }
