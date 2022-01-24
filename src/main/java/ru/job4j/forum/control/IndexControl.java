@@ -19,18 +19,18 @@ import ru.job4j.forum.repository.HbmRepository;
  * interface PostRepository -ru.job4j.forum.store -
  * ! Service  больше не работает с лок.репозиторием,
  * а работает с репозит потдерживающим БД (Postgres)
+ * !!! IMPORTANT
+ * private final PostService posts; - поле объекта замено на HbmRepository(Hibernate)
+ *     public IndexControl(PostService posts) {
+ *         this.posts = posts;
+ *     }
  */
 @Controller
 public class IndexControl {
 
-    private static Logger logger = LoggerFactory.getLogger(IndexControl.class);
-    private static Marker debug = MarkerFactory.getMarker("DEBUG");
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexControl.class);
 
-//    private final PostService posts;
-//
-//    public IndexControl(PostService posts) {
-//        this.posts = posts;
-//    }
+    private static final Marker DEBUG = MarkerFactory.getMarker("DEBUG");
 
     private final HbmRepository hbmRepository;
 
@@ -38,17 +38,25 @@ public class IndexControl {
         this.hbmRepository = hbmRepository;
     }
 
+    /**
+     * возможно заменить на
+     * model.addAttribute("posts", posts.getAll()); через CrudRepository<P,L>
+     *
+     * @param model
+     * @return
+     */
     @GetMapping({"/", "/index"})
     public String index(Model model) {
         model.addAttribute("user", SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal());
-//        model.addAttribute("posts", posts.getAll()); через CrudRepo
         hbmRepository.getAll().stream().forEach(System.out::println);
         model.addAttribute("posts", hbmRepository.getAll());
-        logger.info(debug, " getAll() Post List {}");
-        logger.debug(debug, " getAll() Post List {}", hbmRepository.getAll());
+        var cf = hbmRepository.getAll();
+        LOGGER.info(DEBUG, " getAll() Post List {}", cf);
+        LOGGER.debug(DEBUG, " getAll() Post List {}", cf);
+        LOGGER.debug("Object find DB : {}", cf);
         return "index";
     }
 }

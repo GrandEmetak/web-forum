@@ -28,8 +28,19 @@ import java.util.List;
  * private final PostRepository posts - произведена замена,
  * с локального репозитория класс ru.job4j.forum.repository.PostRepository, на
  * interface PostRepository -ru.job4j.forum.store -
- * ! Service  больше не работает с лок.репозиторием,
+ * <p>
+ * !IMPORTANT Service  больше не работает с лок.репозиторием,
+ * исключено из поля объекта
  * private PostRepository postRepository;
+ * она же позднее  private final PostRepositoryLocal postRepositoryLocal;
+ * + в конструкторе
+ * public PostService(PostRepository posts,
+ * PostRepositoryLocal postRepository,
+ * HbmRepository hbmRepository) {
+ * this.postsStore = posts;
+ * this.postRepositoryLocal = postRepository;
+ * this.hbmRepository = hbmRepository;
+ * }
  * <p>
  * public PostService(PostRepository postRepository) {
  * this.postRepository = postRepository;
@@ -40,6 +51,14 @@ import java.util.List;
  * - Подключите Spring Security к проекту.
  * - Сделайте сразу интеграцию с базой данных.
  * не активные методы относятся к локальному классу репозиторию
+ * !!! Important
+ * все методы ниже использовали postRepositoryLocal заменены на работы с HbmRepository через Hibernate
+ * public Collection<Post> getAll() {
+ * public Post findById(int id) {
+ * public Post putUserToPost(Post post, User user) {
+ * public void save(Post post) {
+ * public Post saveData(Post post) {
+ * public Post updatePost(Post post) {
  */
 @Service
 public class PostService {
@@ -50,22 +69,17 @@ public class PostService {
 
     private final PostRepository postsStore;
 
-    private final PostRepositoryLocal postRepositoryLocal;
-
-    private  final HbmRepository hbmRepository;
+    private final HbmRepository hbmRepository;
 
     public PostService(PostRepository posts,
-                       PostRepositoryLocal postRepository,
                        HbmRepository hbmRepository) {
         this.postsStore = posts;
-        this.postRepositoryLocal = postRepository;
         this.hbmRepository = hbmRepository;
     }
 
     public List<Post> getAll() {
         List<Post> rsl = new ArrayList<>();
         postsStore.findAll().forEach(rsl::add);
-        // rsl.stream().forEach(System.out::println);
         LOGGER.debug(DEBUG, " getAll() Post List {}", rsl);
         LOGGER.info("info message {}", rsl);
         return rsl;
@@ -79,10 +93,6 @@ public class PostService {
      * @return Post Object
      */
     public Post findById(int id) {
-//        System.out.println("TO chto prislo findByID " + id);
-//        Integer jf = id;
-//        var optO = postsStore.findById(jf.longValue());
-//        return optO.orElse(null);
         return hbmRepository.findPostById(id);
     }
 
@@ -95,10 +105,11 @@ public class PostService {
     /**
      * save Post Object in DB Repo
      * used CrudRepository
+     *
      * @param post Post Object
      */
     public Post save(Post post) {
-     return postsStore.save(post);
+        return postsStore.save(post);
     }
 
     /**
@@ -111,56 +122,4 @@ public class PostService {
         hbmRepository.updatePost(post);
         return post;
     }
-
-/* * ***/
-
-/*    public Collection<Post> getAll() {
-        return postRepository.getAll();
-    }*/
-
-//    /**
-//     * find By Id Post Object
-//     *
-//     * @param id Post Object
-//     * @return Post Object
-//     */
-//    public Post findById(int id) {
-//        return postRepository.findByIdPost(id);
-//    }
-
-//    public Post putUserToPost(Post post, User user) {
-//        Post post1 = Post.of(post.getName(), post.getDescription());
-//        post1.setUser(user);
-//        return post1;
-//    }
-
-//    /**
-//     * save Post Object in Repo
-//     *
-//     * @param post Post Object
-//     */
-//    public void save(Post post) {
-//        postRepository.save(post);
-//    }
-
-//    /**
-//     * save new data in Post Object
-//     *
-//     * @param post Post Object
-//     * @return Post Object
-//     */
-//    public Post saveData(Post post) {
-//        postRepository.updatePost(post);
-//        return post;
-//    }
-
-//    /**
-//     * update Post object
-//     *
-//     * @param post Post Object include new info
-//     * @return Post Object
-//     */
-//    public Post updatePost(Post post) {
-//        return postRepositoryLocal.updatePost(post);
-//    }
 }

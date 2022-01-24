@@ -3,11 +3,11 @@ package ru.job4j.forum.service;
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Authority;
 import ru.job4j.forum.model.User;
-import ru.job4j.forum.repository.AuthorityRepository1;
-import ru.job4j.forum.repository.HbmRepository;
-import ru.job4j.forum.repository.UserRepository1;
+import ru.job4j.forum.repository.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Service слой отвечает за работу с репозиториями Пользователи и РолиАвторизации
@@ -16,23 +16,53 @@ import java.util.Collection;
  * В качестве проекта мы сделаем классическое приложение - форум.
  * Создайте модели Post, User.
  * Хранение данных в памяти. Базу данных подключать не надо.
+ * !!! IMPORTANT
+ * Удалено использование
+ * private AuthorityRepository1 authorityRepository;
+ * private UserRepository1 userRepository;
+ * public Collection<User> getAll() {
+ * return userRepository.getAll();
+ * }
+ * это был локальный репозиторий - хранение в памяти
+ * методы
+ * public Authority findAuthority() {
+ * return authorityRepository.findByAuthority();
+ * }
+ * public User saveUser(User user) {
+ * Authority aut = findAuthority();
+ * user.setAuthority(aut);
+ * return userRepository.save(user);
+ * public Collection<User> getAll() {
+ * return userRepository.getAll();
+ * }
+ * }
  */
 @Service
 public class UserService {
-    private UserRepository1 userRepository;
-    private AuthorityRepository1 authorityRepository;
+
+    private UserRepository userRepositoryStore;
+    private AuthorityRepository authorityRepositoryStore;
     private HbmRepository hbmRepository;
 
-    public UserService(UserRepository1 userRepository,
-                       AuthorityRepository1 authorityRepository,
+    public UserService(UserRepository userRepositoryStore,
+                       AuthorityRepository authorityRepositoryStore,
                        HbmRepository hbmRepository) {
-        this.userRepository = userRepository;
-        this.authorityRepository = authorityRepository;
+        this.userRepositoryStore = userRepositoryStore;
+        this.authorityRepositoryStore = authorityRepositoryStore;
         this.hbmRepository = hbmRepository;
     }
 
+    /**
+     * get all User from DB forum@localhost table users
+     * @return List<User> object
+     */
     public Collection<User> getAll() {
-        return userRepository.getAll();
+        List<User> userList = new ArrayList<>();
+        var iterAllUser = userRepositoryStore.findAll();
+        while (iterAllUser.iterator().hasNext()) {
+            userList.add(iterAllUser.iterator().next());
+        }
+        return userList;
     }
 
     /**
@@ -45,25 +75,24 @@ public class UserService {
         return hbmRepository.findUserById(id);
     }
 
-//    public User findById(int id) {
-//        return userRepository.findByIdUser(id);
-//    }
-
-//    public User findByNameUser(String user) {
-//        return userRepository.findByNameUser(user);
-//    }
-
     public User findByNameUser(String user) {
         return hbmRepository.findByNameUser(user);
     }
 
-    public Authority findAuthority() {
-        return authorityRepository.findByAuthority();
+    public Authority findAuthority(Authority authority) {
+        var optionalAuthority = authorityRepositoryStore.findById(authority.getId());
+        return optionalAuthority.orElse(null);
     }
 
+    /**
+     * method  automatically assigns a role to a user (ROLE_USER),
+     * save User object in DB table users
+     * @param user
+     * @return
+     */
     public User saveUser(User user) {
-        var aut = findAuthority();
+        Authority aut = Authority.of(1, "ROLE_USER");
         user.setAuthority(aut);
-        return userRepository.saveNewUser(user);
+        return userRepositoryStore.save(user);
     }
 }

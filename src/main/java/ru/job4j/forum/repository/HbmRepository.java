@@ -1,17 +1,29 @@
 package ru.job4j.forum.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.User;
+import ru.job4j.forum.service.PostService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ * Repository работает с удаленной БД forum@localhost
+ */
 @Repository
 @Transactional
 public class HbmRepository {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostService.class);
+
+    private static final Marker DEBUG = MarkerFactory.getMarker("DEBUG");
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -54,8 +66,7 @@ public class HbmRepository {
      * @return
      */
     public User findByNameUser(String user) {
-        System.out.println("User findByNameUser(String user) {" + user);
-        System.out.println("IS OPEN? " + entityManager.isOpen());
+        LOGGER.debug("User findByNameUser(String user) {", user);
         return entityManager.createQuery("from User as c where c.username = :Ids", User.class)
                 .setParameter("Ids", user)
                 .getSingleResult();
