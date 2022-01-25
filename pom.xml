@@ -13,7 +13,7 @@
   <groupId>ru.job4j</groupId>
   <artifactId>job4j_forum</artifactId>
   <version>1.0</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
 
   <name>job4j_forum Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
