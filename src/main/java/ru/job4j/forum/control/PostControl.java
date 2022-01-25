@@ -1,5 +1,9 @@
 package ru.job4j.forum.control;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +43,10 @@ import java.util.Arrays;
 @Controller
 public class PostControl {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostService.class);
+
+    private static final Marker DEBUG = MarkerFactory.getMarker("DEBUG");
+
     private final PostService postService;
     private final UserService userService;
 
@@ -55,8 +63,8 @@ public class PostControl {
      */
     @GetMapping("/create")
     public String create(@RequestParam("user") String user, Model model) {
-        System.out.println("@RequestParam(user) String user" + user);
-        System.out.println("MODEL " + model);
+        LOGGER.info("@RequestParam(user) String user {}", user);
+        LOGGER.debug("MODEL {}", model);
         model.addAttribute("user", userService.findByNameUser(user));
         return "post/create";
     }
@@ -85,14 +93,15 @@ public class PostControl {
         return "redirect:/";
     }
 
-    /** +
+    /**
+     * Метод сохраняет новый пост в БД
      * delete local method signature
      * var usr = userService.findById(post.getId()); local repo
      * postService.save(postService.putUserToPost(post, usr));
      * need find user by id
      *
-     * @param post
-     * @return
+     * @param post новое объявление на сайте
+     * @return сервлет индексной страницы с перечнем всех постов
      */
     @PostMapping("/save")
     public String save(@ModelAttribute Post post) {
