@@ -1,3 +1,20 @@
+insert into authoritys (authority)
+values ('ROLE_USER');
+insert into authoritys (authority)
+values ('ROLE_ADMIN');
+
+insert into users (username, enabled, password, authority_id)
+values ('Ivan Sobolev', true, '$2a$10$TqfYcEWuXxoY6L/aAz2X8egz47vmbtzqAH3PrnWF2gq2vfo7hmbHW', 1);
+
+insert into users (username, enabled, password, authority_id)
+values ('Svetlana Donovan', true, '$2a$10$HiWxVMtZjCOHyk4ktTzeQee7TR/BBrpnEmtORIi32N6Fh6NBiFpA.', 1);
+
+insert into users (username, enabled, password, authority_id)
+values ('Sergei Shirokov', true, '$2a$10$CzztUARq9leM95pmfI70OOT.qOrmxqQF.idwN1AOmpKRAMyzkjJsm', 1);
+
+insert into users (username, enabled, password, authority_id)
+values ('root', true, '$2a$10$NLzdxS.HApEfFa9M1P6sN.qbqDE3trwQnJzkjYBGmGjdqIMu9/dbi', 2);
+
 insert into posts (description, name, user_id)
 values ('Продам велосипед, новый, горный, 25 скоростей Schimano',
         'Продам велосипед', 1);

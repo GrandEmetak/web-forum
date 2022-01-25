@@ -1,3 +1,18 @@
+create table authoritys
+(
+    id        serial primary key,
+    authority varchar(255)
+);
+
+create table users
+(
+    id           serial primary key,
+    enabled      boolean,
+    password     varchar(255),
+    username     varchar(255),
+    authority_id int references authoritys (id)
+);
+
 create table posts
 (
     id          serial primary key,
