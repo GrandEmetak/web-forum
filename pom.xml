@@ -15,10 +15,6 @@
   <version>1.0</version>
   <packaging>jar</packaging>
 
-  <name>job4j_forum Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
- <!-- <url>http://www.example.com</url> -->
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
@@ -34,7 +30,8 @@
       <artifactId>liquibase-core</artifactId>
       <version>3.6.2</version>
     </dependency>
-    <dependency>
+
+    <dependency> <!-- тестирование Spring приложений.-->
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
@@ -57,12 +54,6 @@
       <version>1.4.200</version>
       <scope>test</scope>
     </dependency>
-    <dependency> <!-- тестирование Spring приложений.-->
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
 
     <dependency> <!--Подключите Spring Data. in to sprigboot -->
       <groupId>org.springframework.boot</groupId>
@@ -110,11 +101,7 @@
       <artifactId>log4j-slf4j-impl</artifactId>
       <version>2.9.1</version>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>log4j</groupId>-->
-<!--      <artifactId>log4j</artifactId>-->
-<!--      <version>1.2.17</version>-->
-<!--    </dependency>-->
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
@@ -128,14 +115,14 @@
       <artifactId>spring-boot-starter-tomcat</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-test</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.tomcat.embed</groupId>
       <artifactId>tomcat-embed-jasper</artifactId>
     </dependency>
-<!--    <dependency> &lt;!&ndash; Тестирование Spring приложений &ndash;&gt;-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-starter-test</artifactId>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>-->
+
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-core</artifactId>
@@ -153,30 +140,27 @@
       <artifactId>spring-security-web</artifactId>
       <version>${spring.version}</version>
     </dependency>
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-test</artifactId>
-      </dependency>
+
   </dependencies>
   <build>
-    <finalName>job4j_forum</finalName>
+<!--    <finalName>job4j_forum</finalName>-->
 <!--    <pluginManagement>&lt;!&ndash; lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) &ndash;&gt;-->
       <plugins>
-        <plugin>
-          <!-- Build an executable JAR -->
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.2.0</version>
-          <configuration>
-            <archive>
-              <manifest>
-                <addClasspath>true</addClasspath>
-<!--                <classpathPrefix>lib/</classpathPrefix>-->
-                <mainClass>ru.job4j.forum.Main</mainClass>
-              </manifest>
-            </archive>
-          </configuration>
-        </plugin>
+<!--        <plugin>-->
+<!--          &lt;!&ndash; Build an executable JAR &ndash;&gt;-->
+<!--          <groupId>org.apache.maven.plugins</groupId>-->
+<!--          <artifactId>maven-jar-plugin</artifactId>-->
+<!--          <version>3.2.0</version>-->
+<!--          <configuration>-->
+<!--            <archive>-->
+<!--              <manifest>-->
+<!--                <addClasspath>true</addClasspath>-->
+<!--&lt;!&ndash;                <classpathPrefix>lib/</classpathPrefix>&ndash;&gt;-->
+<!--                <mainClass>ru.job4j.forum.Main</mainClass>-->
+<!--              </manifest>-->
+<!--            </archive>-->
+<!--          </configuration>-->
+<!--        </plugin>-->
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
