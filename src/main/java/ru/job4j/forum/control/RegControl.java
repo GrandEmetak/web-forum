@@ -1,15 +1,14 @@
 package ru.job4j.forum.control;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.repository.AuthorityRepository;
-import ru.job4j.forum.repository.UserRepository;
 import ru.job4j.forum.service.UserService;
 
 /**
@@ -41,12 +40,14 @@ import ru.job4j.forum.service.UserService;
  */
 @Controller
 public class RegControl {
-
+    @Lazy
     private final PasswordEncoder encoder;
     private final UserService userService;
     private final AuthorityRepository authorities;
 
-    public RegControl(PasswordEncoder encoder, UserService userService, AuthorityRepository authorities) {
+    public RegControl(@Lazy PasswordEncoder encoder,
+                      UserService userService,
+                      AuthorityRepository authorities) {
         this.encoder = encoder;
         this.userService = userService;
         this.authorities = authorities;
