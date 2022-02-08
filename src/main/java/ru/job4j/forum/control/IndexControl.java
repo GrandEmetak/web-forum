@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.forum.repository.HbmRepository;
+import ru.job4j.forum.service.PostService;
 
 /**
  * Controller index page - main page
@@ -32,10 +33,10 @@ public class IndexControl {
 
     private static final Marker DEBUG = MarkerFactory.getMarker("DEBUG");
 
-    private final HbmRepository hbmRepository;
+    private final PostService postService;
 
-    public IndexControl(HbmRepository hbmRepository) {
-        this.hbmRepository = hbmRepository;
+    public IndexControl(PostService postService) {
+        this.postService = postService;
     }
 
     /**
@@ -51,12 +52,8 @@ public class IndexControl {
                 .getContext()
                 .getAuthentication()
                 .getPrincipal());
-        hbmRepository.getAll().stream().forEach(System.out::println);
-        model.addAttribute("posts", hbmRepository.getAll());
-        var cf = hbmRepository.getAll();
-        LOGGER.info(DEBUG, " getAll() Post List {}", cf);
-        LOGGER.debug(DEBUG, " getAll() Post List {}", cf);
-        LOGGER.debug("Object find DB : {}", cf);
+       postService.getAll().stream().forEach(System.out::println);
+        model.addAttribute("posts", postService.getAll());
         return "index";
     }
 }

@@ -21,9 +21,7 @@ import java.util.List;
 @Transactional
 public class HbmRepository {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PostService.class);
-
-    private static final Marker DEBUG = MarkerFactory.getMarker("DEBUG");
+    private static final Logger LOGGER = LoggerFactory.getLogger(HbmRepository.class);
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -31,7 +29,7 @@ public class HbmRepository {
     /**
      * return all Post object from DB order by asc - возрастание
      *
-     * @return  List<Post>
+     * @return List<Post>
      */
     public List<Post> getAll() {
         return entityManager.createQuery("from Post as c order by c.id asc", Post.class).getResultList();
@@ -66,14 +64,19 @@ public class HbmRepository {
      * @return
      */
     public User findByNameUser(String user) {
-        LOGGER.debug("User findByNameUser(String user) {", user);
-        return entityManager.createQuery("from User as c where c.username = :Ids", User.class)
-                .setParameter("Ids", user)
-                .getSingleResult();
+        User rsl  = new User();
+        rsl = entityManager.createQuery("from User as c where c.username = :Ids", User.class)
+                .setParameter("Ids", user).getResultList().get(0);
+        LOGGER.info("USER -> {}", user);
+        if (rsl.getUsername() != null) {
+            return rsl;
+        }
+        return rsl;
     }
 
     /**
      * find Post object from DB by id.post
+     *
      * @param id Post object
      * @return Post obj or null
      */

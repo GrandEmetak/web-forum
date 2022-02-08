@@ -1,9 +1,7 @@
 package ru.job4j.forum.model;
 
 import javax.persistence.*;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 0. Spring Boot [#6880]
@@ -42,6 +40,14 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(cascade = {CascadeType.PERSIST,
+            CascadeType.DETACH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE},
+            fetch = FetchType.EAGER)
+    @JoinColumn(name = "discussion_id")
+    private Set<Discussion> discussions = new HashSet<>();
+
     public static Post of(String name, String description) {
         Post post = new Post();
         post.created = new GregorianCalendar();
@@ -69,6 +75,10 @@ public class Post {
         post.description = description;
         post.user = user;
         return post;
+    }
+
+    public void addDiscussion(Discussion discussion) {
+        this.discussions.add(discussion);
     }
 
     public void addUserToPost(User user) {
@@ -115,6 +125,14 @@ public class Post {
         this.user = user;
     }
 
+    public Set<Discussion> getDiscussions() {
+        return discussions;
+    }
+
+    public void setDiscussions(Set<Discussion> discussions) {
+        this.discussions = discussions;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -140,6 +158,7 @@ public class Post {
                 + ", description='" + description + '\''
                 + ", created=" + created
                 + ", user=" + user
+                + ", discussions=" + discussions
                 + '}';
     }
 }

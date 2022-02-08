@@ -1,6 +1,6 @@
 package ru.job4j.forum;
 
-import liquibase.integration.spring.SpringLiquibase;
+//import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -37,21 +37,21 @@ public class Main extends SpringBootServletInitializer {
         return application.sources(Main.class);
     }
 
-    /**
-     * Подключаем к проекту Liquibase -
-     * Liquibase - независимая от базы данных библиотека для отслеживания,
-     * управления и применения изменений схемы базы данных.
-     *
-     * @param ds
-     * @return
-     */
-    @Bean
-    public SpringLiquibase liquibase(DataSource ds) {
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setChangeLog("classpath:liquibase-changeLog.xml");
-        liquibase.setDataSource(ds);
-        return liquibase;
-    }
+//    /**
+//     * Подключаем к проекту Liquibase -
+//     * Liquibase - независимая от базы данных библиотека для отслеживания,
+//     * управления и применения изменений схемы базы данных.
+//     *
+//     * @param ds
+//     * @return
+//     */
+//    @Bean
+//    public SpringLiquibase liquibase(DataSource ds) {
+//        SpringLiquibase liquibase = new SpringLiquibase();
+//        liquibase.setChangeLog("classpath:liquibase-changeLog.xml");
+//        liquibase.setDataSource(ds);
+//        return liquibase;
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);

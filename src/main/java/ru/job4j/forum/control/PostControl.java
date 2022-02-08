@@ -43,7 +43,7 @@ import java.util.Arrays;
 @Controller
 public class PostControl {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PostService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostControl.class);
 
     private static final Marker DEBUG = MarkerFactory.getMarker("DEBUG");
 
@@ -57,6 +57,7 @@ public class PostControl {
 
     /**
      * was  model.addAttribute("user", userService.findByNameUser(user));
+     *
      * @param user
      * @param model
      * @return
@@ -71,25 +72,32 @@ public class PostControl {
 
     /**
      * was localRepo model.addAttribute("post", postService.findById(id));
+     *
      * @param id
      * @param model
      * @return
      */
     @GetMapping("/update")
     public String update(@RequestParam("id") int id, Model model) {
+        LOGGER.info("update id {}", id);
+        LOGGER.info("update model {}", model);
+        LOGGER.info("update передали что нашли {}", postService.findById(id));
         model.addAttribute("post", postService.findById(id));
         return "post/update";
     }
 
     /**
      * +
-     *  postService.updatePost(postService.saveData(post));
+     * postService.updatePost(postService.saveData(post));
+     *
      * @param post
      * @return
      */
     @PostMapping("/saveUpdate")
     public String saveUpdate(@ModelAttribute Post post) {
-               postService.updatePost(post);
+        System.out.println("то что пришло в пост на обновление  " + post);
+       var p = postService.updatePost(post);
+        System.out.println("то что обновляем в Пост " + p);
         return "redirect:/";
     }
 
@@ -105,8 +113,11 @@ public class PostControl {
      */
     @PostMapping("/save")
     public String save(@ModelAttribute Post post) {
+        System.out.println("save user" + post);
         var user = userService.findUserById(post.getId());
-        postService.save(postService.putUserToPost(post, user));
+        System.out.println("save user " + user);
+        var t = postService.save(postService.putUserToPost(post, user));
+        System.out.println("то что сохраняем  " + t);
         return "redirect:/";
     }
 }

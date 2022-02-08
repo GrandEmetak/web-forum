@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.repository.AuthorityRepository;
+import ru.job4j.forum.service.AuthorityService;
 import ru.job4j.forum.service.UserService;
 
 /**
@@ -43,14 +44,12 @@ public class RegControl {
     @Lazy
     private final PasswordEncoder encoder;
     private final UserService userService;
-    private final AuthorityRepository authorities;
 
     public RegControl(@Lazy PasswordEncoder encoder,
                       UserService userService,
-                      AuthorityRepository authorities) {
+                      AuthorityService authorityService) {
         this.encoder = encoder;
         this.userService = userService;
-        this.authorities = authorities;
     }
 
     @GetMapping("/reg")
@@ -71,10 +70,8 @@ public class RegControl {
     public String regSave(@ModelAttribute User user, Model model) {
 
         var userUnique = userService.findUserByUsername(user.getUsername());
-
         if (userUnique != null) {
             String errorMessage = null;
-
             errorMessage = "A user with the same name already exists,\n"
                     + " username must be unique !!!";
             model.addAttribute("errorMessage", errorMessage);
@@ -82,8 +79,8 @@ public class RegControl {
         }
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setAuthority(authorities.findByAuthority("USER"));
-        userService.saveUser(user);
+       var rsl = userService.saveUser(user);
+        System.out.println("USER _> " + rsl);
         return "redirect:/login";
     }
 }

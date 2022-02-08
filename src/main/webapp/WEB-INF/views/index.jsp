@@ -25,7 +25,8 @@
 </head>
 <body>
 <a href="<c:url value='/create?user=${user.username}'/>">Добавить Объявление</a>
-
+<h2>Как быстро вставить иконку на сайт с помощью html</h2>
+<li>&#128386;</li>
 <br>
 <div>
     Login as : ${user.username}
@@ -45,17 +46,19 @@
                 <th scope="col">Создан</th>
                 <th scope="col">Автор</th>
                 <th scope="col">Обновить</th>
+                <th scope="col">Написать</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="post" items="${posts}">
                 <tr>
                     <td><c:out value="${post.id}"/></td>
-                    <td><c:out value="${post.name}"/></td>
+                    <td><a href="<c:url value='/discussions?id=${post.id}'/>"><c:out value="${post.name}"/></a> </td>
                     <td><c:out value="${post.description}"/></td>
                     <td><c:out value="${post.created.getTime()}"/></td>
                     <td><c:out value="${post.user.username}"/></td>
                     <td><a href="<c:url value='/update?id=${post.id}'/>">Обновить объявление</a></td>
+                    <td><a href="<c:url value='/discussions?id=${post.id}'/>">начать общение <li>&#128386;</li></a> </td>
                 </tr>
             </c:forEach>
             </tbody>

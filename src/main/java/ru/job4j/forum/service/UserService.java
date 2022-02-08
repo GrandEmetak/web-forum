@@ -1,5 +1,7 @@
 package ru.job4j.forum.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Authority;
 import ru.job4j.forum.model.User;
@@ -39,6 +41,8 @@ import java.util.List;
  */
 @Service
 public class UserService {
+
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     private UserRepository userRepositoryStore;
     private AuthorityRepository authorityRepositoryStore;
@@ -93,9 +97,10 @@ public class UserService {
      * @return
      */
     public User saveUser(User user) {
-        Authority aut = Authority.of(1, "ROLE_USER");
-        user.setAuthority(aut);
-        return userRepositoryStore.save(user);
+        var auth = authorityRepositoryStore.findById(1);
+        user.addAuthorityToUser(auth.get());
+        var rsl = userRepositoryStore.save(user);
+        return rsl;
     }
 
     public User findUserByUsername(String userName) {
