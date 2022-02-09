@@ -2,6 +2,7 @@ package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Discussion;
+import ru.job4j.forum.model.User;
 import ru.job4j.forum.repository.DiscussionRepository;
 
 @Service
@@ -19,5 +20,16 @@ public class DiscussionService {
 
     public Discussion findById(int id) {
         return discussionRepository.findById(id).orElse(new Discussion());
+    }
+
+    /**
+     * Задает принадлежность Поста к определенному пользователю
+     * @param discussion
+     * @param user
+     * @return
+     */
+    public Discussion putUser(Discussion discussion, User user) {
+         discussion.setUser(user);
+        return discussion;
     }
 }

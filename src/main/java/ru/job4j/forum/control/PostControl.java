@@ -79,9 +79,6 @@ public class PostControl {
      */
     @GetMapping("/update")
     public String update(@RequestParam("id") int id, Model model) {
-        LOGGER.info("update id {}", id);
-        LOGGER.info("update model {}", model);
-        LOGGER.info("update передали что нашли {}", postService.findById(id));
         model.addAttribute("post", postService.findById(id));
         return "post/update";
     }
@@ -95,9 +92,7 @@ public class PostControl {
      */
     @PostMapping("/saveUpdate")
     public String saveUpdate(@ModelAttribute Post post) {
-        System.out.println("то что пришло в пост на обновление  " + post);
        var p = postService.updatePost(post);
-        System.out.println("то что обновляем в Пост " + p);
         return "redirect:/";
     }
 
@@ -113,11 +108,8 @@ public class PostControl {
      */
     @PostMapping("/save")
     public String save(@ModelAttribute Post post) {
-        System.out.println("save user" + post);
         var user = userService.findUserById(post.getId());
-        System.out.println("save user " + user);
         var t = postService.save(postService.putUserToPost(post, user));
-        System.out.println("то что сохраняем  " + t);
         return "redirect:/";
     }
 }

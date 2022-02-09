@@ -24,7 +24,6 @@
     <title>Форум job4j/ветка сообщений по выбранной теме</title>
 </head>
 <body>
-<%--<a href="<c:url value='/create?user=${user.username}'/>">Добавить Объявление</a>--%>
 <a href="<c:url value='/index?user=${user.username}'/>">Главная страница</a>
 
 <br>
@@ -69,7 +68,6 @@
             <tbody>
             <c:forEach var="post" items="${post.discussions}">
                 <tr>
-                    <td><c:out value="${post.id}"/></td>
                     <td><c:out value="${post.description}"/></td>
                     <td><c:out value="${post.created.getTime()}"/></td>
                     <td><c:out value="${post.user.username}"/></td>
@@ -77,6 +75,7 @@
             </c:forEach>
             </tbody>
         </table>
+        <td><a href="<c:url value='/discussions?id=${post.id}'/>">написать сообщение<li>&#128386;</li></a> </td>
     </div>
 </div>
 </div>

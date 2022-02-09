@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.stereotype.Service;
+import ru.job4j.forum.model.Discussion;
 import ru.job4j.forum.model.Post;
 
 import ru.job4j.forum.model.User;
@@ -121,5 +122,9 @@ public class PostService {
     public Post updatePost(Post post) {
         hbmRepository.updatePost(post);
         return post;
+    }
+
+    public void putDiscToPost(Post post, Discussion discussion) {
+        post.addDiscussion(discussion);
     }
 }

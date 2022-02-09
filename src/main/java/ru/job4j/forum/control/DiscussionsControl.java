@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.forum.model.Discussion;
-import ru.job4j.forum.model.Post;
 import ru.job4j.forum.service.DiscussionService;
 import ru.job4j.forum.service.PostService;
 import ru.job4j.forum.service.UserService;
@@ -28,7 +27,7 @@ public class DiscussionsControl {
 
     private final PostService postService;
     private final UserService userService;
-    private DiscussionService discussionService;
+    private final DiscussionService discussionService;
 
     private AtomicInteger idA = new AtomicInteger();
 
@@ -46,6 +45,17 @@ public class DiscussionsControl {
                 .getContext()
                 .getAuthentication()
                 .getPrincipal());
+        model.addAttribute("post", postService.findById(idA.intValue()));
+        return "post/discussionpost";
+    }
+
+    @GetMapping("post/discussionmain")
+    public String mainPost(@RequestParam("id") int id, Model model) {
+        model.addAttribute("user", SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal());
+        idA.set(id);
         model.addAttribute("post", postService.findById(idA.intValue()));
         return "post/discussionpost";
     }
@@ -77,21 +87,15 @@ public class DiscussionsControl {
         var id = discussion.getId();
         discussion.setId(0);
         var user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var userArr = user.toString().split(":");
-        var arr1 = userArr[2].split(";");
-
-        var name = arr1[0].substring(1);
-        var rslUI = userService.findUserByUsername(name);
-        var rslU = userService.findByNameUser(name);
-        discussion.setUser(rslUI);
+        var rslUI = userService.findUserByUsername(userService.contextIn(user));
+        discussionService.putUser(discussion, rslUI);
         var desc = discussionService.save(discussion);
         var post = postService.findById(id);
-        post.addDiscussion(discussion);
+        postService.putDiscToPost(post, desc);
+
         var pst = postService.updatePost(post);
         idA.set(pst.getId());
         model.addAttribute("post", pst);
-
         return "redirect:/post/discussionpost";
-
     }
 }

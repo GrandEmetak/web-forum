@@ -106,4 +106,16 @@ public class UserService {
     public User findUserByUsername(String userName) {
         return userRepositoryStore.findUserByUsername(userName);
     }
+
+    /**
+     * получениеимени пользователя из контекста
+     * @param user
+     * @return
+     */
+    public String contextIn(Object user) {
+        var userArr = user.toString().split(":");
+        var arr1 = userArr[2].split(";");
+        var name = arr1[0].substring(1);
+        return name;
+    }
 }
