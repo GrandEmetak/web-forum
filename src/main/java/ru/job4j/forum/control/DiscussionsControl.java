@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Controller
 public class DiscussionsControl {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DiscussionsControl.class);
+     private static final Logger LOGGER = LoggerFactory.getLogger(DiscussionsControl.class);
 
     private final PostService postService;
     private final UserService userService;
