@@ -25,11 +25,11 @@
   </properties>
 
   <dependencies>
-<!--    <dependency> &lt;!&ndash;liquibase &ndash;&gt;-->
-<!--      <groupId>org.liquibase</groupId>-->
-<!--      <artifactId>liquibase-core</artifactId>-->
-<!--      <version>3.6.2</version>-->
-<!--    </dependency>-->
+    <dependency> <!--liquibase -->
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+      <version>3.6.2</version>
+    </dependency>
 
     <dependency> <!-- тестирование Spring приложений.-->
       <groupId>org.springframework.boot</groupId>

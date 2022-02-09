@@ -25,10 +25,11 @@
 </head>
 <body>
 <a href="<c:url value='/index?user=${user.username}'/>">Главная страница</a>
-
+<br>
+<a href="<c:url value='/logout'/>">Logout</a>
 <br>
 <div>
-    Login as : ${post.user.username}
+    <li>&#9745;</li> Login as : ${post.user.username}
 </div>
 <br>
 <div class="container mt-3">
@@ -59,7 +60,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Создан</th>
                 <th scope="col">Автор</th>

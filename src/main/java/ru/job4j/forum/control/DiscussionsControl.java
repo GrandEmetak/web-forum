@@ -84,6 +84,7 @@ public class DiscussionsControl {
      */
     @PostMapping("/saveUpdateDisc")
     public String saveUpdate(@ModelAttribute Discussion discussion, Model model) {
+        System.out.println(discussion);
         var id = discussion.getId();
         discussion.setId(0);
         var user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

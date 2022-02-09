@@ -25,7 +25,8 @@
 </head>
 <body>
 <a href="<c:url value='/create?user=${user.username}'/>">Добавить Объявление</a>
-
+<br>
+<a href="<c:url value='/logout'/>">Logout</a>
 <br>
 <div>
     <li>&#9745;</li> Login as : ${user.username}
@@ -56,7 +57,13 @@
                     <td><c:out value="${post.description}"/></td>
                     <td><c:out value="${post.created.getTime()}"/></td>
                     <td><c:out value="${post.user.username}"/></td>
-                    <td><a href="<c:url value='/update?id=${post.id}'/>">Обновить объявление</a></td>
+                    <td>
+                        <c:if test="${post.user.username == user.username}">
+                            <a href="<c:url value='/update?id=${post.id}'/>">Обновить объявление</a></td>
+                        </c:if>
+                        <c:if test="${post.user.username != user.username}">
+                            <c:out value=" "/>
+                        </c:if>
                     <td><a href="<c:url value='/discussions?id=${post.id}'/>">send message <li>&#128386;</li></a> </td>
                 </tr>
             </c:forEach>

@@ -45,7 +45,7 @@ public class Post {
             CascadeType.PERSIST,
             CascadeType.MERGE},
             fetch = FetchType.EAGER)
-    @JoinColumn(name = "discussion_id")
+    @JoinColumn(name = "post_id")
     private Set<Discussion> discussions = new HashSet<>();
 
     public static Post of(String name, String description) {

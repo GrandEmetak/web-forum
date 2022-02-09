@@ -5,6 +5,10 @@ import ru.job4j.forum.model.Discussion;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.repository.DiscussionRepository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+
 @Service
 public class DiscussionService {
 
@@ -15,6 +19,7 @@ public class DiscussionService {
     }
 
     public Discussion save(Discussion discussion) {
+        discussion.setCreated(Calendar.getInstance());
         return discussionRepository.save(discussion);
     }
 
