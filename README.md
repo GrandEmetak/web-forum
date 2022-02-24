@@ -76,3 +76,4 @@ ______________________________________________
 4. Выход с сайта форума и выход из логина.
 
 ![Image of Arch](https://github.com/SlartiBartFast-art/job4j_forum/blob/main/image/Screenshot_8.jpg)
+
