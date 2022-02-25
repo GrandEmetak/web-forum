@@ -1,9 +1,10 @@
 # job4j_forum
+Классическое приложение - форум.
 
 [![Build Status](https://app.travis-ci.com/SlartiBartFast-art/job4j_forum.svg?branch=main)](https://app.travis-ci.com/SlartiBartFast-art/job4j_forum)
 ![GitHub repo size](https://img.shields.io/github/repo-size/SlartiBartFast-art/job4j_forum)
 ![GitHub language count](https://img.shields.io/github/languages/count/SlartiBartFast-art/job4j_forum?logo=github)
- Классическое приложение - форум.
+ 
 
 Used technologies
 ______________________________________________
