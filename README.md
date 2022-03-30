@@ -1,5 +1,6 @@
 # job4j_forum
-Классическое приложение - форум.
+Классическое приложение - форум. 
+Место, где каждый может озвучить свое мнение, а также, это позволить людям общаться на интересующие их темы.
 
 [![Build Status](https://app.travis-ci.com/SlartiBartFast-art/job4j_forum.svg?branch=main)](https://app.travis-ci.com/SlartiBartFast-art/job4j_forum)
 ![GitHub repo size](https://img.shields.io/github/repo-size/SlartiBartFast-art/job4j_forum)
