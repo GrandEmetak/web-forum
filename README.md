@@ -19,14 +19,20 @@ ______________________________________________
 - Travis C.I.
 - Heroku
 
-Это приложение "форум " запущено в облаке. Для этого мной был использовать сервис Hekoru.
+Приложение запущено в облаке. 
+
+Для этого был использовать сервис Hekoru.
+
 Ознакомиться с приложением вы можете перейдя по ссылке:
 
-https://stark-plateau-02521.herokuapp.com/login
+
+ - https://stark-plateau-02521.herokuapp.com/login
 
 ______________________________________________
 
-1. Регистрация на форуме. reg
+1. Регистрация на форуме.
+ 
+ /reg
 
 Сервисом могут пользоваться разные пользователи.
 Каждый пользователь при регистрации указывает уникальный логин/username и пароль.
@@ -38,7 +44,9 @@ ______________________________________________
 
 ![Image of Arch](https://github.com/SlartiBartFast-art/job4j_forum/blob/main/image/Screenshot_2.jpg)
 
-2. Авторизация. login
+2. Авторизация.
+
+ /login
 
 ![Image of Arch](https://github.com/SlartiBartFast-art/job4j_forum/blob/main/image/Screenshot_3.jpg)
 
