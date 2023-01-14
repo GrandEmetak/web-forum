@@ -13,33 +13,10 @@ import web.forum.service.UserService;
 
 /**
  * Класс отвечает за регистрацию пользователя в системе
- * 0. Spring Boot [#6880]
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
- * В качестве проекта мы сделаем классическое приложение - форум.
- * Создайте модели Post, User.
- * Хранение данных в памяти. Базу данных подключать не надо.
- * 2. Регистрация пользователя [#296069 #241520]00
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.4. Security
- * убраны
- * private ServiceReg serviceReg;
- * <p>
- * public RegControl(ServiceReg serviceReg) {
- * this.serviceReg = serviceReg;
- * }
- * - @GetMapping("/reg")
- * public String regPage() {
- * return "reg";
- * }
- * <p>
- * - @PostMapping("/reg")
- * public String regSave(@ModelAttribute User user) {
- * serviceReg.regNewUser(user);
- * return "redirect:/login";
- * }
- * заменены на - >
  */
 @Controller
 public class RegControl {
+
     @Lazy
     private final PasswordEncoder encoder;
     private final UserService userService;
@@ -58,8 +35,8 @@ public class RegControl {
 
     /**
      * проверяет есть ли пользователь с таким именем,
-     * если нет то регестрация прозходит успешно
-     * если есть возвразает с предупреждением к форме регистрации
+     * если нет то регистрация происходит успешно
+     * если есть возвращает с предупреждением к форме регистрации
      *
      * @param user  Object User(username, password)
      * @param model (String - warning)
@@ -78,7 +55,7 @@ public class RegControl {
         }
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
-       var rsl = userService.saveUser(user);
+        var rsl = userService.saveUser(user);
         System.out.println("USER _> " + rsl);
         return "redirect:/login";
     }
