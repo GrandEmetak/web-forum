@@ -12,12 +12,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * репозиторий сделан не активным
  */
 @Repository
-public class AuthorityRepository1 {
+public class AuthorityRepositoryLocal {
     private AtomicInteger atomicInteger = new AtomicInteger(0);
 
     private Map<Integer, Authority> authorityMap = new HashMap<>();
 
-    public AuthorityRepository1() {
+    public AuthorityRepositoryLocal() {
         initUser();
     }
 
