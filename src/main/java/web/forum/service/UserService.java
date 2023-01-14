@@ -15,31 +15,6 @@ import java.util.List;
 
 /**
  * Service слой отвечает за работу с репозиториями Пользователи и РолиАвторизации
- * 0. Spring Boot [#6880]
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
- * В качестве проекта мы сделаем классическое приложение - форум.
- * Создайте модели Post, User.
- * Хранение данных в памяти. Базу данных подключать не надо.
- * !!! IMPORTANT
- * Удалено использование
- * private AuthorityRepository1 authorityRepository;
- * private UserRepository1 userRepository;
- * public Collection<User> getAll() {
- * return userRepository.getAll();
- * }
- * это был локальный репозиторий - хранение в памяти
- * методы
- * public Authority findAuthority() {
- * return authorityRepository.findByAuthority();
- * }
- * public User saveUser(User user) {
- * Authority aut = findAuthority();
- * user.setAuthority(aut);
- * return userRepository.save(user);
- * public Collection<User> getAll() {
- * return userRepository.getAll();
- * }
- * }
  */
 @Service
 public class UserService {
@@ -110,7 +85,7 @@ public class UserService {
     }
 
     /**
-     * получениеимени пользователя из контекста
+     * получение имени пользователя из контекста
      * @param user
      * @return
      */

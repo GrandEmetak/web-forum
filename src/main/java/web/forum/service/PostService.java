@@ -16,49 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * уровень Сервис для работы с репозиторием объявлений Пост (Post object)
- * 0. Spring Boot [#6880]
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
- * В качестве проекта мы сделаем классическое приложение - форум.
- * Создайте модели Post, User.
- * Хранение данных в памяти. Базу данных подключать не надо.
- * 1. Spring boot repository [#2095]
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
- * Подключите базу данных в проекте job4j_forum.
- * private final PostRepository posts - произведена замена,
- * с локального репозитория класс ru.job4j.forum.repository.PostRepository, на
- * interface PostRepository -ru.job4j.forum.store -
+ * Сервис для работы с репозиторием объявлений Пост (Post object)
+ * Реализованы варианты работы как :
+ * через Spring
+ * через Hibernate
  * <p>
- * !IMPORTANT Service  больше не работает с лок.репозиторием,
- * исключено из поля объекта
- * private PostRepository postRepository;
- * она же позднее  private final PostRepositoryLocal postRepositoryLocal;
- * + в конструкторе
- * public PostService(PostRepository posts,
- * PostRepositoryLocal postRepository,
- * HbmRepository hbmRepository) {
- * this.postsStore = posts;
- * this.postRepositoryLocal = postRepository;
- * this.hbmRepository = hbmRepository;
- * }
- * <p>
- * public PostService(PostRepository postRepository) {
- * this.postRepository = postRepository;
- * }
- * а работает с репозит потдерживающим БД (Postgres)
- * 2. Spring boot security [#296071]
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
- * - Подключите Spring Security к проекту.
- * - Сделайте сразу интеграцию с базой данных.
  * не активные методы относятся к локальному классу репозиторию
- * !!! Important
- * все методы ниже использовали postRepositoryLocal заменены на работы с HbmRepository через Hibernate
- * public Collection<Post> getAll() {
- * public Post findById(int id) {
- * public Post putUserToPost(Post post, User user) {
- * public void save(Post post) {
- * public Post saveData(Post post) {
- * public Post updatePost(Post post) {
  */
 @Service
 public class PostService {
@@ -67,19 +30,19 @@ public class PostService {
 
     private static final Marker DEBUG = MarkerFactory.getMarker("DEBUG");
 
-    private final PostRepository postsStore;
+    private final PostRepository postRepository;
 
     private final HbmRepository hbmRepository;
 
     public PostService(PostRepository posts,
                        HbmRepository hbmRepository) {
-        this.postsStore = posts;
+        this.postRepository = posts;
         this.hbmRepository = hbmRepository;
     }
 
     public List<Post> getAll() {
         List<Post> rsl = new ArrayList<>();
-        postsStore.findAll().forEach(rsl::add);
+        postRepository.findAll().forEach(rsl::add);
         LOGGER.debug(DEBUG, " getAll() Post List {}", rsl);
         LOGGER.info("info message {}", rsl);
         return rsl;
@@ -109,7 +72,7 @@ public class PostService {
      * @param post Post Object
      */
     public Post save(Post post) {
-        return postsStore.save(post);
+        return postRepository.save(post);
     }
 
     /**

@@ -1,12 +1,16 @@
 package web.forum.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Objects;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "discussion")
 public class Discussion {
