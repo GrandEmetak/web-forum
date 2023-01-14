@@ -147,7 +147,7 @@
 <!--              <manifest>-->
 <!--                <addClasspath>true</addClasspath>-->
 <!--&lt;!&ndash;                <classpathPrefix>lib/</classpathPrefix>&ndash;&gt;-->
-<!--                <mainClass>ru.job4j.forum.Main</mainClass>-->
+<!--                <mainClass>Main</mainClass>-->
 <!--              </manifest>-->
 <!--            </archive>-->
 <!--          </configuration>-->
@@ -200,7 +200,7 @@
 <!--                <finalName>job4j_forum</finalName>-->
 <!--                <transformers>-->
 <!--                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
-<!--                    <mainClass>ru.job4j.forum.Main</mainClass>-->
+<!--                    <mainClass>Main</mainClass>-->
 <!--                  </transformer>-->
 <!--                </transformers>-->
 <!--              </configuration>-->
