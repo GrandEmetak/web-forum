@@ -6,18 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * 0. Spring Boot [#6880]
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
- * В качестве проекта мы сделаем классическое приложение - форум.
- * Создайте модели Post, User.
- * Хранение данных в памяти. Базу данных подключать не надо.
- * 1. Spring boot repository [#2095]
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
- * Подключите базу данных в проекте job4j_forum.
- * 2. Spring boot security [#296071]
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
- * - Подключите Spring Security к проекту.
- * - Сделайте сразу интеграцию с базой данных.
+ * Модель данных описывающая - Пользователя.
  */
 @Entity
 @Table(name = "users")
@@ -140,7 +129,6 @@ public class User {
         return Objects.hash(id);
     }
 
-/* , postSet=%s  - , postSet*/
     @Override
     public String toString() {
         return String.format("User: id=%s, password=%s, username=%s, enabled=%s, Authority=%s",

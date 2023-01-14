@@ -1,13 +1,12 @@
 package web.forum.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Objects;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "discussion")
 public class Discussion {
@@ -38,5 +37,18 @@ public class Discussion {
         discussion.description = description;
         discussion.user = user;
         return discussion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Discussion that = (Discussion) o;
+        return id != 0 && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
