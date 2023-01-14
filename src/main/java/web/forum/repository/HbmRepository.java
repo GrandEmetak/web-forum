@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Repository работает с удаленной БД forum@localhost
+ * Repository - работает с удаленной БД forum@localhost
  */
 @Repository
 @Transactional
@@ -29,11 +29,11 @@ public class HbmRepository {
      * @return List<Post>
      */
     public List<Post> getAll() {
-        return entityManager.createQuery("from Post as c order by c.id asc", Post.class).getResultList();
+        return entityManager.createQuery("SELECT c FROM Post as c order by c.id asc", Post.class).getResultList();
     }
 
     public User findUserById(int id) {
-        return entityManager.createQuery("from User as a where id = :Ids", User.class)
+        return entityManager.createQuery("SELECT u FROM User as u where u.id = :Ids", User.class)
                 .setParameter("Ids", id)
                 .getSingleResult();
     }
@@ -62,7 +62,7 @@ public class HbmRepository {
      */
     public User findByNameUser(String user) {
         User rsl  = new User();
-        rsl = entityManager.createQuery("from User as c where c.username = :Ids", User.class)
+        rsl = entityManager.createQuery("SELECT u FROM User as u where u.username = :Ids", User.class)
                 .setParameter("Ids", user).getResultList().get(0);
         LOGGER.info("USER -> {}", user);
         if (rsl.getUsername() != null) {

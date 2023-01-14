@@ -10,12 +10,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Репозиторий отвечает за работу с объектами Пост/Post
- * 0. Spring Boot [#6880]
- * Уровень : 3. МидлКатегория : 3.4. SpringТопик : 3.4.5. Boot
- * В качестве проекта мы сделаем классическое приложение - форум.
- * Создайте модели Post, User.
- * Хранение данных в памяти. Базу данных подключать не надо.
+ * Local Repository - Репозиторий отвечает за работу с объектами Пост/Post
+ * Хранение данных в памяти.
  */
 @Repository
 public class PostRepositoryLocal {

@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * сделан не активным репозиторий так как произведен переход на JDBC *
  */
 @Repository
-public class UserRepository1 {
+public class UserRepositoryLocal {
 
     private AtomicInteger atomicInteger = new AtomicInteger(0);
 
@@ -29,7 +29,7 @@ public class UserRepository1 {
 
         private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public UserRepository1() {
+    public UserRepositoryLocal() {
         initUser();
     }
 
@@ -64,7 +64,7 @@ public class UserRepository1 {
     }
 
     /**
-     * Кодиррование пароля и сохранение Юзера в БД
+     * Кодирование пароля и сохранение Юзера в БД
      * @param user object
      * @return user object
      */
