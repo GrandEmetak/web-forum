@@ -1,5 +1,5 @@
 Создаем новую базу = forum в postgresql.
-Создадаем схему = db/schema.sql
+Создаваем схему = resources/db/schema.sql
 Схема таблиц для авторизации = schema.sql - table authoritys and users
 login/password
 "ADMIN" root/secret, "USER" user/123456
