@@ -3,7 +3,7 @@
 Классическое приложение - Веб-форум. 
 Это место позволяет людям общаться на интересующие их темы.
 
-[![Build Status](https://app.travis-ci.com/GrandEmetak/web-forum.svg?branch=main)](https://app.travis-ci.com/SlartiBartFast-art/job4j_forum)
+[![Build Status](https://app.travis-ci.com/GrandEmetak/web-forum.svg?branch=main)](https://app.travis-ci.com/GrandEmetak/web-forum)
 ![GitHub repo size](https://img.shields.io/github/repo-size/GrandEmetak/web-forum)
 ![GitHub language count](https://img.shields.io/github/languages/count/GrandEmetak/web-forum?logo=github)
  ![GitHub last commit](https://img.shields.io/github/last-commit/GrandEmetak/web-forum?logo=github)
