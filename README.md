@@ -3,7 +3,7 @@
 Классическое приложение - Веб-форум. 
 Это место позволяет людям общаться на интересующие их темы.
 
-[![Build Status](https://app.travis-ci.com/Halsyon/web-forum/.svg?branch=main)](https://app.travis-ci.com/Halsyon/web-forum/)
+[![Build Status](https://app.travis-ci.com/Halsyon/web-forum/.svg?branch=main)](https://app.travis-ci.com/Halsyon/web-forum)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Halsyon/web-forum/)
 ![GitHub language count](https://img.shields.io/github/languages/count/Halsyon/web-forum/?logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Halsyon/web-forum/?logo=github)
